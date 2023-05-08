@@ -1,13 +1,18 @@
 const wordSearch = (letters, word) => {
   const horizontalJoin = letters.map(ls => ls.join(''));
   let find = false;
+  let bkWord = word.split("").reverse().join('');
+  console.log("--backword key words is ---", bkWord);
   //Check horizontal first
-  if (checkWord(horizontalJoin,word)) {
+  if (checkWord(horizontalJoin,word) || checkWord(horizontalJoin,bkWord)) {
     return true;
   }
   const verticalArray = getVerticalArray(letters);
   const verticalJoin = verticalArray.map(ls=> ls.join(''));
-  find = checkWord(verticalJoin,word);
+  if (checkWord(verticalJoin, word) || checkWord(verticalJoin,bkWord)) {
+    return true;
+  }
+    
   return find;
 };
 
@@ -20,10 +25,10 @@ const checkWord = (array, word) =>{
 
 const getVerticalArray = (horizontalJoin)=> {
  
-  let result = [];
+  const result = [];
   for (let i = 0; i < horizontalJoin[0].length; i++) {
-    let vertical = [];
-    for (let j = 0; j < horizontalJoin.length; j++) {
+    const vertical = [];
+    for (let j in horizontalJoin) {
       vertical.push(horizontalJoin[j][i]);
     }
     result.push(vertical);
